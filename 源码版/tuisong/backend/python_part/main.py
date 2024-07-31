@@ -328,7 +328,7 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
     }
     debug_logger.info('The finnal data is: ')
-    critical_logger.critical(data)
+    critical_logger.critical(json.dumps(data))
     debug_logger.info(data)
 
     #  这里会直接发送，我们这里先注释掉，以后会用 wxpusher 推送
