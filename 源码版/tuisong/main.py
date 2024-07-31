@@ -8,6 +8,17 @@ import os
 import http.client, urllib
 import json
 from zhdate import ZhDate
+
+import logging
+
+# 配置日志，使用UTF-8编码
+logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG, 
+                    format='%(asctime)s - %(levelname)s - %(message)s', 
+                    encoding='utf-8')
+
+# 记录日志
+logging.info('开始运行程序')
+
 global false, null, true
 false = null = true = ''
 def get_color():
@@ -36,6 +47,8 @@ def get_access_token():
 def get_birthday(birthday, year, today):
     birthday_year = birthday.split("-")[0]
     # 判断是否为农历生日
+    # print('看看内容', birthday, year, today)
+    # print(birthday)
     if birthday_year[0] == "r":
         r_mouth = int(birthday.split("-")[1])
         r_day = int(birthday.split("-")[2])
@@ -189,15 +202,24 @@ def lizhi():
 def tip():
     if (Whether_tip!=False):
         try:
-            conn = http.client.HTTPSConnection('api.tianapi.com')  #接口域名
-            params = urllib.parse.urlencode({'key':tianxing_API,'city':city})
+            conn = http.client.HTTPSConnection('apis.tianapi.com')  #接口域名
+            city_id = cityinfo.cityInfo[province][city]["AREAID"]
+            params = urllib.parse.urlencode({'key':tianxing_API,'city':city_id,'type':'1'})
+            print('查看接口参数：',params)
+            # print('查看接口路径：', conn)
             headers = {'Content-type':'application/x-www-form-urlencoded'}
+
+            # conn.request('POST','/tianqi/index',params,headers)
             conn.request('POST','/tianqi/index',params,headers)
             res = conn.getresponse()
             data = res.read()
+            # print('查看接口返回数据：',data)
             data = json.loads(data)
-            pop = data["newslist"][0]["pop"]
-            tips = data["newslist"][0]["tips"]
+            # pop = data["newslist"][0]["pop"]
+            pop = data["result"]["pcpn"]
+            # tips = data["newslist"][0]["tips"] 好像这个API更新了
+            tips = data["result"]["tips"]
+            
             return pop,tips
         except:
             return ("天气预报API调取错误，请检查API是否正确申请或是否填写正确"),""
@@ -303,17 +325,21 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
     }
-    response = post(url, headers=headers, json=data).json()
-    if response["errcode"] == 40037:
-        print("推送消息失败，请检查模板id是否正确")
-    elif response["errcode"] == 40036:
-        print("推送消息失败，请检查模板id是否为空")
-    elif response["errcode"] == 40003:
-        print("推送消息失败，请检查微信号是否正确")
-    elif response["errcode"] == 0:
-        print("推送消息成功")
-    else:
-        print(response)
+    logging.info('The finnal data is: ')
+    logging.info(data)
+
+    #  这里会直接发送，我们这里先注释掉，以后会用 wxpusher 推送
+    # response = post(url, headers=headers, json=data).json()
+    # if response["errcode"] == 40037:
+    #     print("推送消息失败，请检查模板id是否正确")
+    # elif response["errcode"] == 40036:
+    #     print("推送消息失败，请检查模板id是否为空")
+    # elif response["errcode"] == 40003:
+    #     print("推送消息失败，请检查微信号是否正确")
+    # elif response["errcode"] == 0:
+    #     print("推送消息成功")
+    # else:
+    #     print(response)
 
 
 if __name__ == "__main__":
