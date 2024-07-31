@@ -1,6 +1,6 @@
 import random
 from time import time, localtime
-import cityinfo
+import utils.cityinfo as cityinfo
 from requests import get, post
 from datetime import datetime, date
 import sys
@@ -9,12 +9,19 @@ import http.client, urllib
 import json
 from zhdate import ZhDate
 
+
+
 import logging
 
-# 配置日志，使用UTF-8编码
-logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG, 
+# 配置日志，使用UTF-8编码 debug用的log
+logging.basicConfig(filename='./output/debugger.log', filemode='w', level=logging.DEBUG, 
                     format='%(asctime)s - %(levelname)s - %(message)s', 
                     encoding='utf-8')
+
+logging.basicConfig(filename='./output/output.log', filemode='w', level=logging.CRITICAL, 
+                    format='%(asctime)s - %(levelname)s - %(message)s', 
+                    encoding='utf-8')
+
 
 # 记录日志
 logging.info('开始运行程序')
@@ -205,7 +212,7 @@ def tip():
             conn = http.client.HTTPSConnection('apis.tianapi.com')  #接口域名
             city_id = cityinfo.cityInfo[province][city]["AREAID"]
             params = urllib.parse.urlencode({'key':tianxing_API,'city':city_id,'type':'1'})
-            print('查看接口参数：',params)
+            # print('查看接口参数：',params)
             # print('查看接口路径：', conn)
             headers = {'Content-type':'application/x-www-form-urlencoded'}
 
@@ -219,7 +226,7 @@ def tip():
             pop = data["result"]["pcpn"]
             # tips = data["newslist"][0]["tips"] 好像这个API更新了
             tips = data["result"]["tips"]
-            
+
             return pop,tips
         except:
             return ("天气预报API调取错误，请检查API是否正确申请或是否填写正确"),""
@@ -326,6 +333,7 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
     }
     logging.info('The finnal data is: ')
+    logging.critical('test')
     logging.info(data)
 
     #  这里会直接发送，我们这里先注释掉，以后会用 wxpusher 推送
@@ -344,7 +352,7 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
 
 if __name__ == "__main__":
     try:
-        with open("./config.json", encoding="utf-8") as f:
+        with open("./config/config.json", encoding="utf-8") as f:
             config = eval(f.read())
     except FileNotFoundError:
         print("推送消息失败，请检查config.txt文件是否与程序位于同一路径")
