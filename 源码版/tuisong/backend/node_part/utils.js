@@ -51,9 +51,9 @@ const drawHTMLContentDirectly = function(data){
             border-radius: 10px;
         }
         .weather-info {
-            box-shadow: 0 0.25em rgba(67, 71, 85, 0.27), 0 0.25em 1em rgba(90, 125, 188, 0.05);
-            border-radius: 5px;
-            padding: 20px;
+          box-shadow:  rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+          border-radius: 5px;
+          padding: 20px;
         }
         .weather-info p {
             margin: 5px 0;
@@ -72,35 +72,38 @@ const drawHTMLContentDirectly = function(data){
         }
     </style>
 </head>
+
+
 <body>
     <div class="container">
-        <h1 style="text-align: center;color: ${usefulData.date.color}">${usefulData.date.value}</h1>
+        <div style="font-size: 20px; color: ${usefulData.date.color}; margin-bottom: 15px">🗓 ${usefulData.date.value}</div>
         <div class="weather-info">
-            <p style="font-size: 60px; text-align: center; color: ${usefulData.min_temperature.color}">${usefulData.min_temperature.value} ~ ${usefulData.max_temperature.value}</p>
+            <p style="font-size: 20px; text-align: center; color: ${usefulData.min_temperature.color}">🌡️气温: ${usefulData.min_temperature.value} ~ ${usefulData.max_temperature.value}</p>
             <div class="flex">
-                <p style="color: #EC7063; font-size: 25px;color: ${usefulData.weather.color}">🌡️ ${usefulData.weather.value}</p>
-                <p style="color: #5DADE2; font-size: 15px;color: ${usefulData.pop.color}">💧 ${usefulData.pop.value} </p>
-                <p style="color: #5DADE2; font-size: 15px;color: ${usefulData.tips.color}">💧 ${usefulData.tips.value} </p>
+                <p style="font-size: 15px;color: ${usefulData.weather.color}"> ☁ 天气:${usefulData.weather.value}</p>
+                <p style="font-size: 15px;color: ${usefulData.pop.color}">💧 降水概率:${usefulData.pop.value} %</p>
             </div>
-            <p style="text-align: center; color: #AAB7B8; font-size: 10px;color: ${usefulData.city.color}">📍 ${usefulData.city.value}</p>
+            <p style="font-size: 15px;color: ${usefulData.tips.color}"> 
+            今日建议:<br>${usefulData.tips.value} </p>
+            <p style="text-align: center; font-size: 15px;color: ${usefulData.city.color}">📍 ${usefulData.city.value}</p>
         </div>
         <div>
-            <p style="margin-top: 10px; color: ${usefulData.note_en.color}"> ${usefulData.note_en.value}</p>
+            <p style="margin-top: 10px; color: ${usefulData.note_en.color}"> 每日一句: <br>${usefulData.note_en.value} <br> ${usefulData.note_ch.value}</p>
         </div>
         <div>
-            <p style="margin-top: 10px; color: ${usefulData.pipi.color}"> ${usefulData.pipi.value}</p>
+            <p style="margin-top: 10px; color: ${usefulData.pipi.color}"> 今日彩虹屁: <br> ${usefulData.pipi.value}</p>
         </div>
         <div>
-            <p style="margin-top: 10px; color: ${usefulData.lucky.color}"> ${usefulData.lucky.value}</p>
+            <p style="margin-top: 10px; color: ${usefulData.lucky.color}"> 今日星座运势: <br> ${usefulData.lucky.value}</p>
         </div>
         <div>
-            <p style="margin-top: 10px; color: ${usefulData.lizhi.color}"> ${usefulData.lizhi.value}</p>
+            <p style="margin-top: 10px; color: ${usefulData.lizhi.color}"> 今日励志: <br> ${usefulData.lizhi.value}</p>
         </div>
         <div>
-            <p style="margin-top: 10px; color: ${usefulData.health.color}"> ${usefulData.health.value}</p>
+            <p style="margin-top: 10px; color: ${usefulData.health.color}"> 今日健康小提醒:<br> ${usefulData.health.value}</p>
         </div>
-        <p class="love-msg"color: ${usefulData.love_day.color}>❤ 相恋已经 ${usefulData.love_day.value} 天! ❤</p>
-        <p class="love-msg"color: ${usefulData.birthday1.color}>❤ 还有 ${usefulData.birthday1.value} 天就到你的生日啦 ❤</p>
+        <p class="love-msg"color: ${usefulData.love_day.color}>❤ 今天是我们恋爱的第 ${usefulData.love_day.value} 天! ❤</p>
+        <p class="love-msg"color: ${usefulData.birthday1.color}>❤ 距离宝贝的生日还有 ${usefulData.birthday1.value} 天! ❤</p>
     </div>
 </body>
 </html>
