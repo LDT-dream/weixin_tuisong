@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(14, 30, 37, 0.12), 0 2px 16px rgba(14, 30, 37, 0.32);
+            border-radius: 10px;
+        }
+        .weather-info {
+            box-shadow: 0 0.25em rgba(67, 71, 85, 0.27), 0 0.25em 1em rgba(90, 125, 188, 0.05);
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .weather-info p {
+            margin: 5px 0;
+        }
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .day-info, .night-info {
+            margin-top: 20px;
+        }
+        .love-msg {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">星期一</h1>
+        <div class="weather-info">
+            <p style="font-size: 60px; text-align: center;">30°</p>
+            <div class="flex">
+                <p style="color: #EC7063; font-size: 25px;">🌡️ 晴朗</p>
+                <p style="color: #5DADE2; font-size: 15px;">💧 50%</p>
+                <p style="color: #58D68D; font-size: 15px;">🍃 北风 3级</p>
+            </div>
+            <div class="day-info flex">
+                <p>🌱 今天☀️ 晴朗 30° 北风 3级</p>
+                <p>🍀 今天🌙️ 多云 20° 北风 2级</p>
+            </div>
+            <div class="night-info flex">
+                <p>🍁 明天☀️ 多云 28° 东风 3级</p>
+                <p>🌹 明天🌙️ 阴天 22° 东风 2级</p>
+            </div>
+            <p style="text-align: center; color: #AAB7B8; font-size: 10px;">📍 北京</p>
+        </div>
+        <div>
+            <p style="margin-top: 10px;">「 每日一言 」</p>
+            <p style="text-align: right; margin-right: 2%; color: #D98880;">-- 来源</p>
+        </div>
+        <div class="flex">
+            <p>2024-07-31</p>
+            <p>农历六月十三</p>
+        </div>
+        <p class="love-msg">❤ 相恋已经1年6月15天啦，共计565天 ❤</p>
+    </div>
+</body>
+</html>
