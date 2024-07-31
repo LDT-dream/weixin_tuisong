@@ -9,22 +9,17 @@ import http.client, urllib
 import json
 from zhdate import ZhDate
 
+from utils.utils import setup_loggers
 
+# 设置日志
+debug_logger, critical_logger = setup_loggers()
 
-import logging
-
-# 配置日志，使用UTF-8编码 debug用的log
-logging.basicConfig(filename='./output/debugger.log', filemode='w', level=logging.DEBUG, 
-                    format='%(asctime)s - %(levelname)s - %(message)s', 
-                    encoding='utf-8')
-
-logging.basicConfig(filename='./output/output.log', filemode='w', level=logging.CRITICAL, 
-                    format='%(asctime)s - %(levelname)s - %(message)s', 
-                    encoding='utf-8')
+# 使用配置好的logger记录日志
+debug_logger.debug('这是一个debug信息')
 
 
 # 记录日志
-logging.info('开始运行程序')
+debug_logger.info('开始运行程序')
 
 global false, null, true
 false = null = true = ''
@@ -332,9 +327,9 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
     }
-    logging.info('The finnal data is: ')
-    logging.critical('test')
-    logging.info(data)
+    debug_logger.info('The finnal data is: ')
+    critical_logger.critical(data)
+    debug_logger.info(data)
 
     #  这里会直接发送，我们这里先注释掉，以后会用 wxpusher 推送
     # response = post(url, headers=headers, json=data).json()
