@@ -1,5 +1,7 @@
 const fs = require('fs').promises; // 使用fs.promises来获取返回Promise的方法
 const path = require('path');
+const axios = require('axios');
+
 
 /**
  * 从指定的log文件中读取数据，并转换为JSON格式。
@@ -126,11 +128,42 @@ const getMyHTML = async function(wayToGetHTML = 'directly'){
 }
 
 
+/**
+ * 获取当前订阅应用的用户UID数组
+ * 
+ * @param {string} appToken 应用密钥标志
+ * @param {number} [page=1] 请求数据的页码，默认为1
+ * @param {number} [pageSize=20] 分页大小，默认为20，不能超过100
+ * @returns {Promise<Array>} 包含用户UID的Promise对象
+ */
+ async function fetchSubscribedUsersUIDs(appToken, page = 1, pageSize = 20) {
+  const requestUrl = 'https://wxpusher.zjiecode.com/api/fun/wxuser/v2';
+  try {
+      const response = await axios.get(requestUrl, {
+          params: {
+              appToken: appToken,
+              page: page,
+              pageSize: pageSize,
+              type: 0 // 查询关注应用的用户
+          }
+      });
+
+      if (response.data.success) {
+          return response.data.data.records.map(record => record.uid);
+      } else {
+          throw new Error(response.data.msg);
+      }
+  } catch (error) {
+      console.error('请求失败:', error);
+      throw error;
+  }
+}
+
+
+
 // 使用示例
-
-
-
 // 导出函数
 module.exports = {
   getMyHTML,
+  fetchSubscribedUsersUIDs,
 };
