@@ -1,0 +1,34 @@
+name: Daily Task Workflow
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  fetch-and-send:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python environment
+      run: |
+        cd source_code/tuisong/backend/python_part
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Fetch information
+      run: |
+        cd source_code/tuisong/backend/python_part
+        python3 main.py
+
+    - name: Set up Node.js environment
+      run: |
+        cd source_code/tuisong/backend/node_part
+        npm ci
+
+    - name: Send message
+      run: |
+        cd source_code/tuisong/backend/node_part
+        node index.js
