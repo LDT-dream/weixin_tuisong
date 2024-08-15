@@ -1,0 +1,35 @@
+name: Daily Task Workflow
+
+on:
+  schedule:
+    - cron: '0 22 * * *'  # 每天午夜12点（UTC时间）触发
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  fetch-and-send:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python environment
+      run: |
+        cd 源码版/tuisong/backend/python_part
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Fetch information
+      run: |
+        cd 源码版/tuisong/backend/python_part
+        python3 main.py
+
+    - name: Set up Node.js environment
+      run: |
+        cd 源码版/tuisong/backend/node_part
+        npm ci
+
+    - name: Send message
+      run: |
+        cd 源码版/tuisong/backend/node_part
+        node index.js
