@@ -83,7 +83,7 @@ const drawHTMLContentDirectly = function(data){
             <p style="font-size: 20px; text-align: center; color: ${usefulData.min_temperature.color}">🌡️气温: ${usefulData.min_temperature.value} ~ ${usefulData.max_temperature.value}</p>
             <div class="flex">
                 <p style="font-size: 15px;color: ${usefulData.weather.color}"> ☁ 天气:${usefulData.weather.value}</p>
-                <p style="font-size: 15px;color: ${usefulData.pop.color}">💧 降水概率:${usefulData.pop.value} %</p>
+                <p style="font-size: 15px;color: ${usefulData.pop.color}">💧 降水量:${usefulData.pop.value} mm </p>
             </div>
             <p style="font-size: 15px;color: ${usefulData.tips.color}"> 
             今日建议:<br>${usefulData.tips.value} </p>
