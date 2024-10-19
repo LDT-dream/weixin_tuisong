@@ -3,16 +3,33 @@ name: Auto Commit Every 30 Days
 on:
   schedule:
    - cron: '0 0 1/30 * *'  # 每天的0点触发，每30天执行一次
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
   auto-commit:
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v2
-       - name: Commit changes
-         run: |
-           git config --global user.name 'Your Name'
-           git config --global user.email 'your.email@example.com'
-           git add .
-           git commit -m "Automated commit every 30 days" || echo "No changes to commit"
-           git push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      
+      - name: Install dependencies
+        run: npm install left-pad
+      
+      - name: Add timestamp to README
+        run: |
+          timestamp=$(date)
+          node -e "const leftPad = require('left-pad'); const content = `Last updated: ${leftPad(timestamp, 30, ' ')}`; const fs = require('fs'); fs.writeFileSync('README.md', content + '\n' + fs.readFileSync('README.md', 'utf8'), 'utf8');"
+      
+      - name: Commit changes
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'action@github.com'
+          git add .
+          git commit -m "Automated commit every 30 days" || echo "No changes to commit"
+          git push
