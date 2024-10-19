@@ -14,17 +14,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: '12'
-      
-      - name: Install dependencies
-        run: npm install left-pad
+          node-version: '20'
       
       - name: Add timestamp to README
         run: |
-          timestamp=$(date)
-          node -e "const leftPad = require('left-pad'); const content = `Last updated: ${leftPad(timestamp, 30, ' ')}`; const fs = require('fs'); fs.writeFileSync('README.md', content + '\n' + fs.readFileSync('README.md', 'utf8'), 'utf8');"
+          echo "Last updated: $(date)" >> README.md
       
       - name: Commit changes
         run: |
