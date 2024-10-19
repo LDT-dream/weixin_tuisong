@@ -4,8 +4,8 @@ on:
   schedule:
    - cron: '0 0 1/30 * *'  # 每天的0点触发，每30天执行一次
 
- jobs:
-   auto-commit:
+jobs:
+  auto-commit:
      runs-on: ubuntu-latest
      steps:
        - uses: actions/checkout@v2
