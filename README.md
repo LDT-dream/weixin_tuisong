@@ -1,4 +1,26 @@
 
+# DT-Dream 里推送的用法简单描述
+我改了下这个repo里的内容，给自己设置了发定时请求。
+为了以后自己不忘记，在这里稍微写两句。
+
+代码放在源码版里，分成了fronted和backend两部分
+1. 通过python_part的代码，拿到墨迹天气的API，把数据输出到output/output.log中
+通过config.txt中的配置，可以设置推送时间，推送日期，推送内容，推送模板，推送对象等
+
+```
+cd 源码版\tuisong\backend\python_part
+python3 python_part/main.py
+
+```
+
+2. 通过node_part的代码，拿到output/output.log的数据，通过微信的API，将数据推送到微信
+
+```
+cd 源码版\tuisong\backend\node_part
+node index.js
+```
+
+
 
 # 微信推送教程-呆瓜版教程！谁都会！-V 1.3
 
